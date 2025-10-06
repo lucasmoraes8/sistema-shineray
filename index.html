@@ -3,74 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shineray PRO - Login</title>
-    <link rel="stylesheet" href="css/auth.css">
+    <title>Dashboard Comparativo - Shineray PRO</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="auth-page">
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <div class="logo">
-                    <i class="fas fa-motorcycle"></i>
-                    <h1>SHINERAY <span>PRO</span></h1>
-                </div>
-                <p>Sistema de Gestão de Vendas</p>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-motorcycle"></i>
+                <h1>SHINERAY <span>PRO</span></h1>
             </div>
-            
-            <form id="login-form" class="auth-form">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" required placeholder="seu@email.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" required placeholder="Sua senha">
-                </div>
-                
-                <div class="form-group">
-                    <label for="loja">Loja</label>
-                    <select id="loja" required>
-                        <option value="">Selecione a loja</option>
-                        <option value="O">Oitizeiro</option>
-                        <option value="CD">Conde</option>
-                    </select>
-                </div>
-                
-                <button type="submit" class="btn btn-primary btn-block">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Entrar no Sistema
-                </button>
-            </form>
-            
-            <div class="auth-footer">
-                <p>Problemas para acessar? <a href="#">Contate o administrador</a></p>
-            </div>
-        </div>
-        
-        <div class="auth-info">
-            <h2>Bem-vindo ao Sistema Shineray</h2>
-            <div class="info-cards">
-                <div class="info-card">
+            <nav class="nav">
+                <a href="dashboard.html" class="nav-link active">
                     <i class="fas fa-chart-line"></i>
-                    <h3>Dashboard Completo</h3>
-                    <p>Acompanhe todas as métricas de vendas</p>
-                </div>
-                <div class="info-card">
+                    <span>Dashboard</span>
+                </a>
+                <a href="vendas.html" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Vendas</span>
+                </a>
+                <a href="estoque.html" class="nav-link">
                     <i class="fas fa-warehouse"></i>
-                    <h3>Controle de Estoque</h3>
-                    <p>Gerencie seu inventário em tempo real</p>
-                </div>
-                <div class="info-card">
+                    <span>Estoque</span>
+                </a>
+                <a href="importar.html" class="nav-link">
+                    <i class="fas fa-file-import"></i>
+                    <span>Importar</span>
+                </a>
+                <a href="usuarios.html" class="nav-link">
                     <i class="fas fa-users"></i>
-                    <h3>Multi-usuário</h3>
-                    <p>Diferentes níveis de acesso</p>
+                    <span>Usuários</span>
+                </a>
+                <a href="configuracoes.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1 class="header-title">Dashboard Comparativo</h1>
+                <div class="header-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="user-avatar">AD</div>
+                        <div>
+                            <div id="user-name">Administrador</div>
+                            <div id="user-store" style="font-size: 0.8rem; color: var(--gray-light);">
+                                Oitizeiro & Conde
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </button>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Filtros -->
+                <div class="filters">
+                    <select id="periodo">
+                        <option value="hoje">Hoje</option>
+                        <option value="semana">Esta Semana</option>
+                        <option value="mes" selected>Este Mês</option>
+                        <option value="trimestre">Este Trimestre</option>
+                        <option value="ano">Este Ano</option>
+                        <option value="personalizado">Personalizado</option>
+                    </select>
+                    <input type="date" id="data-inicio" style="display: none;">
+                    <input type="date" id="data-fim" style="display: none;">
+                    <button class="btn btn-primary" id="aplicar-filtro">
+                        <i class="fas fa-filter"></i>
+                        Aplicar Filtro
+                    </button>
+                    <button class="btn btn-secondary" id="atualizar-dados">
+                        <i class="fas fa-sync-alt"></i>
+                        Atualizar
+                    </button>
+                </div>
+
+                <!-- Cards Comparativos -->
+                <div class="comparativo-cards">
+                    <div class="comparativo-header">
+                        <h2>Comparativo de Desempenho</h2>
+                        <div class="loja-legend">
+                            <div class="legenda-item">
+                                <div class="cor-legenda oitizeiro"></div>
+                                <span>Oitizeiro</span>
+                            </div>
+                            <div class="legenda-item">
+                                <div class="cor-legenda conde"></div>
+                                <span>Conde</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-cards-comparativo">
+                        <!-- Total de Vendas -->
+                        <div class="card-comparativo">
+                            <div class="card-header">
+                                <h3>Total de Vendas</h3>
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="card-comparativo-content">
+                                <div class="loja-dados">
+                                    <div class="loja-info oitizeiro">
+                                        <span class="loja-nome">Oitizeiro</span>
+                                        <span class="loja-valor" id="vendas-o-quantidade">0</span>
+                                    </div>
+                                    <div class="loja-info conde">
+                                        <span class="loja-nome">Conde</span>
+                                        <span class="loja-valor" id="vendas-cd-quantidade">0</span>
+                                    </div>
+                                </div>
+                                <div class="comparativo-bar">
+                                    <div class="bar-container">
+                                        <div class="bar oitizeiro" id="bar-vendas-o" style="width: 50%"></div>
+                                        <div class="bar conde" id="bar-vendas-cd" style="width: 50%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Valor Total -->
+                        <div class="card-comparativo">
+                            <div class="card-header">
+                                <h3>Valor Total (R$)</h3>
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="card-comparativo-content">
+                                <div class="loja-dados">
+                                    <div class="loja-info oitizeiro">
+                                        <span class="loja-nome">Oitizeiro</span>
+                                        <span class="loja-valor" id="valor-o">R$ 0,00</span>
+                                    </div>
+                                    <div class="loja-info conde">
+                                        <span class="loja-nome">Conde</span>
+                                        <span class="loja-valor" id="valor-cd">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                <div class="comparativo-bar">
+                                    <div class="bar-container">
+                                        <div class="bar oitizeiro" id="bar-valor-o" style="width: 50%"></div>
+                                        <div class="bar conde" id="bar-valor-cd" style="width: 50%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ticket Médio -->
+                        <div class="card-comparativo">
+                            <div class="card-header">
+                                <h3>Ticket Médio</h3>
+                                <i class="fas fa-receipt"></i>
+                            </div>
+                            <div class="card-comparativo-content">
+                                <div class="loja-dados">
+                                    <div class="loja-info oitizeiro">
+                                        <span class="loja-nome">Oitizeiro</span>
+                                        <span class="loja-valor" id="ticket-o">R$ 0,00</span>
+                                    </div>
+                                    <div class="loja-info conde">
+                                        <span class="loja-nome">Conde</span>
+                                        <span class="loja-valor" id="ticket-cd">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                <div class="diferenca" id="diferenca-ticket">
+                                    <span class="diferenca-text">+0%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modelo Mais Vendido -->
+                        <div class="card-comparativo">
+                            <div class="card-header">
+                                <h3>Modelo Mais Vendido</h3>
+                                <i class="fas fa-motorcycle"></i>
+                            </div>
+                            <div class="card-comparativo-content">
+                                <div class="loja-dados">
+                                    <div class="loja-info oitizeiro">
+                                        <span class="loja-nome">Oitizeiro</span>
+                                        <span class="loja-valor modelo" id="modelo-o">-</span>
+                                    </div>
+                                    <div class="loja-info conde">
+                                        <span class="loja-nome">Conde</span>
+                                        <span class="loja-valor modelo" id="modelo-cd">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos Comparativos -->
+                <div class="charts-comparativo">
+                    <!-- Vendas por Modelo -->
+                    <div class="chart-container full-width">
+                        <div class="chart-header">
+                            <h3>Vendas por Modelo - Comparativo</h3>
+                            <div class="chart-actions">
+                                <button class="btn btn-secondary btn-small" id="toggle-modelos">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    Alternar Visualização
+                                </button>
+                            </div>
+                        </div>
+                        <canvas id="vendas-modelo-comparativo-chart"></canvas>
+                    </div>
+
+                    <!-- Evolução Mensal -->
+                    <div class="chart-container full-width">
+                        <h3>Evolução de Vendas - Mensal</h3>
+                        <canvas id="evolucao-mensal-chart"></canvas>
+                    </div>
+
+                    <!-- Desempenho por Dia da Semana -->
+                    <div class="chart-container">
+                        <h3>Desempenho por Dia da Semana</h3>
+                        <canvas id="dias-semana-chart"></canvas>
+                    </div>
+
+                    <!-- Market Share -->
+                    <div class="chart-container">
+                        <h3>Participação no Total</h3>
+                        <canvas id="market-share-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tabela de Comparação Detalhada -->
+                <div class="tabela-comparativo">
+                    <h3>Comparativo Detalhado por Modelo</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Modelo</th>
+                                    <th>Oitizeiro</th>
+                                    <th>Conde</th>
+                                    <th>Total</th>
+                                    <th>Diferença</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-comparativo-body">
+                                <!-- Dados carregados via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Insights e Recomendações -->
+                <div class="insights">
+                    <h3>📈 Insights e Recomendações</h3>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <div class="insight-icon oportunidade">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h4>Oportunidades</h4>
+                                <div id="insights-oportunidades">
+                                    <!-- Carregado via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-icon alerta">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h4>Alertas</h4>
+                                <div id="insights-alertas">
+                                    <!-- Carregado via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-icon sugestao">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h4>Sugestões</h4>
+                                <div id="insights-sugestoes">
+                                    <!-- Carregado via JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 
-    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard-comparativo.js"></script>
 </body>
 </html>

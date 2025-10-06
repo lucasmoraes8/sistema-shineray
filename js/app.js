@@ -1,256 +1,142 @@
-// Funções comuns utilizadas em todas as páginas
-class SistemaShineray {
+// Sistema de Navegação
+class NavegacaoSistema {
     constructor() {
-        this.usuarioLogado = null;
         this.init();
     }
 
     init() {
-        this.verificarAutenticacao();
-        this.configurarLogout();
-        this.carregarDadosUsuario();
+        this.configurarNavegacao();
+        this.verificarPaginaAtiva();
     }
 
-    verificarAutenticacao() {
-        const usuario = localStorage.getItem('usuarioLogado');
-        
-        if (!usuario && !window.location.pathname.endsWith('index.html')) {
-            window.location.href = 'index.html';
-            return;
-        }
+    configurarNavegacao() {
+        // Configurar links de navegação
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.nav-link')) {
+                e.preventDefault();
+                const link = e.target.closest('.nav-link');
+                const href = link.getAttribute('href');
+                
+                if (href && href !== '#' && !href.includes('javascript')) {
+                    // Adicionar loading state
+                    this.mostrarLoading();
+                    
+                    // Navegar para a página
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 100);
+                }
+            }
+        });
 
-        if (usuario) {
-            this.usuarioLogado = JSON.parse(usuario);
-        }
-    }
-
-    configurarLogout() {
+        // Configurar logout
         const logoutBtn = document.getElementById('logout-btn');
         if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                if (confirm('Tem certeza que deseja sair do sistema?')) {
-                    localStorage.removeItem('usuarioLogado');
-                    window.location.href = 'index.html';
-                }
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.fazerLogout();
             });
         }
     }
 
-    carregarDadosUsuario() {
-        if (this.usuarioLogado) {
-            // Atualizar informações do usuário na interface
-            const userAvatar = document.getElementById('user-avatar');
-            const userName = document.getElementById('user-name');
-            const userStore = document.getElementById('user-store');
-
-            if (userAvatar) userAvatar.textContent = this.usuarioLogado.nome.charAt(0);
-            if (userName) userName.textContent = this.usuarioLogado.nome;
-            if (userStore) {
-                const lojaNome = this.usuarioLogado.lojaAtual === 'O' ? 'Oitizeiro' : 'Conde';
-                userStore.textContent = this.usuarioLogado.perfil === 'admin' 
-                    ? 'Oitizeiro & Conde' 
-                    : lojaNome;
+    verificarPaginaAtiva() {
+        // Marcar link ativo baseado na página atual
+        const paginaAtual = window.location.pathname.split('/').pop() || 'dashboard.html';
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === paginaAtual) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
+        });
+
+        // Atualizar título da página
+        this.atualizarTituloPagina(paginaAtual);
+    }
+
+    atualizarTituloPagina(pagina) {
+        const titulos = {
+            'dashboard.html': 'Dashboard Comparativo',
+            'vendas.html': 'Gestão de Vendas',
+            'estoque.html': 'Controle de Estoque',
+            'importar.html': 'Importar Dados',
+            'usuarios.html': 'Gestão de Usuários',
+            'configuracoes.html': 'Configurações do Sistema'
+        };
+
+        const tituloElement = document.getElementById('page-title') || document.querySelector('.header-title');
+        if (tituloElement && titulos[pagina]) {
+            tituloElement.textContent = titulos[pagina];
         }
     }
 
-    // Formatar data para exibição
-    formatarData(data) {
-        if (!data) return '-';
-        const date = new Date(data);
-        return date.toLocaleDateString('pt-BR');
-    }
-
-    // Formatar valor monetário
-    formatarMoeda(valor) {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(valor);
-    }
-
-    // Gerar ID único
-    gerarId() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2);
-    }
-
-    // Mostrar notificação
-    mostrarNotificacao(mensagem, tipo = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${tipo}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <i class="fas fa-${this.getNotificationIcon(tipo)}"></i>
-                <span>${mensagem}</span>
+    mostrarLoading() {
+        // Criar overlay de loading
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.innerHTML = `
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Carregando...</p>
             </div>
         `;
 
-        // Adicionar estilos da notificação
-        if (!document.querySelector('.notification-styles')) {
+        // Adicionar estilos se não existirem
+        if (!document.querySelector('.loading-styles')) {
             const styles = document.createElement('style');
-            styles.className = 'notification-styles';
+            styles.className = 'loading-styles';
             styles.textContent = `
-                .notification {
+                .loading-overlay {
                     position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    padding: 1rem 1.5rem;
-                    border-radius: var(--radius);
-                    color: white;
-                    z-index: 10000;
-                    animation: slideInRight 0.3s ease;
-                    max-width: 400px;
-                    box-shadow: var(--shadow);
-                }
-                .notification-success { background-color: var(--success); }
-                .notification-error { background-color: var(--danger); }
-                .notification-warning { background-color: var(--warning); color: var(--dark); }
-                .notification-info { background-color: var(--primary); }
-                .notification-content {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
                     display: flex;
                     align-items: center;
-                    gap: 0.5rem;
+                    justify-content: center;
+                    z-index: 10000;
                 }
-                @keyframes slideInRight {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
+                .loading-spinner {
+                    text-align: center;
+                    color: var(--primary);
+                }
+                .loading-spinner i {
+                    font-size: 3rem;
+                    margin-bottom: 1rem;
+                }
+                .loading-spinner p {
+                    color: var(--light);
+                    font-size: 1.1rem;
                 }
             `;
             document.head.appendChild(styles);
         }
 
-        document.body.appendChild(notification);
+        document.body.appendChild(loadingOverlay);
 
-        // Remover após 5 segundos
+        // Remover após navegação (fallback)
         setTimeout(() => {
-            notification.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
-        }, 5000);
-    }
-
-    getNotificationIcon(tipo) {
-        const icons = {
-            'success': 'check-circle',
-            'error': 'exclamation-circle',
-            'warning': 'exclamation-triangle',
-            'info': 'info-circle'
-        };
-        return icons[tipo] || 'info-circle';
-    }
-
-    // Validar e-mail
-    validarEmail(email) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    }
-
-    // Fechar modal ao clicar fora
-    configurarModais() {
-        const modais = document.querySelectorAll('.modal');
-        modais.forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-        });
-
-        // Fechar modal com ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modais.forEach(modal => {
-                    modal.style.display = 'none';
-                });
+            if (loadingOverlay.parentNode) {
+                loadingOverlay.remove();
             }
-        });
+        }, 3000);
     }
-}
 
-// Inicializar sistema
-const sistema = new SistemaShineray();
-
-// Modelos de motos Shineray
-const MODELOS_SHINERAY = [
-    "SHINERAY CROSSER 200",
-    "SHINERAY RAPTOR 200",
-    "SHINERAY DUAL 200",
-    "SHINERAY STORM 200",
-    "SHINERAY WORK 150",
-    "SHINERAY WORKER 150",
-    "SHINERAY RACER 150",
-    "SHINERAY JET 125",
-    "SHINERAY XY 200",
-    "SHINERAY XY 250",
-    "SHINERAY XY 400",
-    "SHINERAY CUSTON 125",
-    "SHINERAY ROAD 150",
-    "SHINERAY FURIA 150",
-    "SHINERAY DUKE 200",
-    "SHINERAY RANGER 150"
-];
-
-// Dados iniciais do sistema
-const DADOS_INICIAIS = {
-    vendas: [],
-    estoque: [],
-    usuarios: [],
-    configuracoes: {
-        lojas: {
-            O: { nome: 'Oitizeiro', endereco: '', telefone: '' },
-            CD: { nome: 'Conde', endereco: '', telefone: '' }
-        },
-        estoque: {
-            alertaBaixo: 3,
-            alertaCritico: 1,
-            alertasEmail: true
-        },
-        notificacoes: {
-            vendas: true,
-            estoque: true,
-            relatorios: false,
-            frequenciaRelatorios: 'semanal'
-        },
-        seguranca: {
-            loginDuplo: false,
-            tempoSessao: 60,
-            tentativasLogin: 3
+    fazerLogout() {
+        if (confirm('Tem certeza que deseja sair do sistema?')) {
+            localStorage.removeItem('usuarioLogado');
+            this.mostrarLoading();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
         }
     }
-};
-
-// Carregar dados do localStorage
-function carregarDados() {
-    const dados = localStorage.getItem('sistemaShineray');
-    if (dados) {
-        return JSON.parse(dados);
-    } else {
-        // Inicializar com dados padrão
-        salvarDados(DADOS_INICIAIS);
-        return DADOS_INICIAIS;
-    }
 }
 
-// Salvar dados no localStorage
-function salvarDados(dados) {
-    localStorage.setItem('sistemaShineray', JSON.stringify(dados));
-}
-
-// Obter dados filtrados por loja
-function obterDadosPorLoja(dados, loja) {
-    if (loja === 'todas') return dados;
-    return dados.filter(item => item.loja === loja);
-}
-
-// Configurar selects de modelos
-function configurarSelectModelos(selectId) {
-    const select = document.getElementById(selectId);
-    if (select) {
-        select.innerHTML = '<option value="">Selecione um modelo</option>';
-        MODELOS_SHINERAY.forEach(modelo => {
-            const option = document.createElement('option');
-            option.value = modelo;
-            option.textContent = modelo;
-            select.appendChild(option);
-        });
-    }
-}
+// Adicione esta linha no final do app.js, após a classe SistemaShineray:
+const navegacao = new NavegacaoSistema();

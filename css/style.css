@@ -1,8 +1,8 @@
 :root {
-    --primary: #FF6B00;
+    --primary: #fa3c3c;
     --primary-dark: #E55A00;
     --primary-light: #FF8C42;
-    --dark: #121212;
+    --dark: #000000ea;
     --darker: #0A0A0A;
     --dark-light: #1E1E1E;
     --light: #F5F5F5;
@@ -573,4 +573,375 @@ body {
 /* Import History */
 .import-history {
     margin-top: 2rem;
+}
+/* Comparativo Cards */
+.comparativo-cards {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.comparativo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray);
+}
+
+.comparativo-header h2 {
+    color: var(--primary);
+    margin: 0;
+}
+
+.loja-legend {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cor-legenda {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.cor-legenda.oitizeiro {
+    background: linear-gradient(135deg, #FF6B00, #FF8C42);
+}
+
+.cor-legenda.conde {
+    background: linear-gradient(135deg, #FF8C42, #FFA500);
+}
+
+.stats-cards-comparativo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card-comparativo {
+    background: var(--dark-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border-left: 4px solid var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.card-comparativo:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.card-header h3 {
+    color: var(--light);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.card-header i {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.card-comparativo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.loja-dados {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.loja-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.loja-nome {
+    font-size: 0.8rem;
+    color: var(--gray-light);
+    margin-bottom: 0.25rem;
+}
+
+.loja-valor {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--light);
+}
+
+.loja-valor.modelo {
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.loja-info.oitizeiro .loja-valor {
+    color: #FF6B00;
+}
+
+.loja-info.conde .loja-valor {
+    color: #FFA500;
+}
+
+.comparativo-bar {
+    margin-top: 0.5rem;
+}
+
+.bar-container {
+    width: 100%;
+    height: 8px;
+    background: var(--gray);
+    border-radius: 4px;
+    display: flex;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.bar.oitizeiro {
+    background: linear-gradient(90deg, #FF6B00, #FF8C42);
+}
+
+.bar.conde {
+    background: linear-gradient(90deg, #FF8C42, #FFA500);
+}
+
+.diferenca {
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    background: var(--gray);
+}
+
+.diferenca.positivo {
+    background: rgba(40, 167, 69, 0.2);
+    color: var(--success);
+}
+
+.diferenca.negativo {
+    background: rgba(220, 53, 69, 0.2);
+    color: var(--danger);
+}
+
+.diferenca-text {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Charts Comparativo */
+.charts-comparativo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.chart-header h3 {
+    margin: 0;
+    color: var(--primary);
+}
+
+.chart-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Tabela Comparativo */
+.tabela-comparativo {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.tabela-comparativo h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+/* Insights */
+.insights {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.insights h3 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.insight-card {
+    background: var(--dark-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.insight-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.insight-icon.oportunidade {
+    background: rgba(40, 167, 69, 0.2);
+    color: var(--success);
+}
+
+.insight-icon.alerta {
+    background: rgba(255, 193, 7, 0.2);
+    color: var(--warning);
+}
+
+.insight-icon.sugestao {
+    background: rgba(0, 123, 255, 0.2);
+    color: #007bff;
+}
+
+.insight-content h4 {
+    color: var(--light);
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.insight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.insight-list li {
+    padding: 0.3rem 0;
+    color: var(--gray-light);
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--gray);
+}
+
+.insight-list li:last-child {
+    border-bottom: none;
+}
+
+.insight-list li::before {
+    content: "•";
+    color: var(--primary);
+    margin-right: 0.5rem;
+}
+
+/* Performance Indicators */
+.performance-badge {
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.performance-excelente {
+    background: var(--success);
+    color: white;
+}
+
+.performance-boa {
+    background: #28a745;
+    color: white;
+}
+
+.performance-media {
+    background: var(--warning);
+    color: var(--dark);
+}
+
+.performance-baixa {
+    background: var(--danger);
+    color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .comparativo-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .stats-cards-comparativo {
+        grid-template-columns: 1fr;
+    }
+    
+    .loja-dados {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .loja-info {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .charts-comparativo {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .insights-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .insight-card {
+        flex-direction: column;
+        text-align: center;
+    }
 }

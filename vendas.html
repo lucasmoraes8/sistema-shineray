@@ -9,130 +9,73 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar (mesma estrutura do dashboard) -->
+        <!-- Sidebar (igual ao dashboard) -->
         <aside class="sidebar">
-            <!-- Mesmo sidebar do dashboard -->
+            <div class="logo">
+                <i class="fas fa-motorcycle"></i>
+                <h1>SHINERAY <span>PRO</span></h1>
+            </div>
+            <nav class="nav">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="vendas.html" class="nav-link active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Vendas</span>
+                </a>
+                <a href="estoque.html" class="nav-link">
+                    <i class="fas fa-warehouse"></i>
+                    <span>Estoque</span>
+                </a>
+                <a href="importar.html" class="nav-link">
+                    <i class="fas fa-file-import"></i>
+                    <span>Importar</span>
+                </a>
+                <a href="usuarios.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Usuários</span>
+                </a>
+                <a href="configuracoes.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
         </aside>
 
+        <!-- Main Content -->
         <main class="main-content">
             <header class="header">
                 <h1 class="header-title">Gestão de Vendas</h1>
                 <div class="header-actions">
-                    <!-- Mesmo header do dashboard -->
+                    <div class="user-info">
+                        <div class="user-avatar" id="user-avatar">AD</div>
+                        <div>
+                            <div id="user-name">Administrador</div>
+                            <div id="user-store" style="font-size: 0.8rem; color: var(--gray-light);">
+                                Oitizeiro & Conde
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </button>
                 </div>
             </header>
 
             <div class="content">
-                <!-- Barra de Ações -->
+                <!-- Conteúdo específico da página de vendas -->
                 <div class="action-bar">
                     <button class="btn btn-primary" id="nova-venda-btn">
                         <i class="fas fa-plus"></i>
                         Nova Venda
                     </button>
-                    <div class="filters">
-                        <input type="date" id="data-inicio">
-                        <input type="date" id="data-fim">
-                        <select id="filtrar-loja">
-                            <option value="todas">Todas as Lojas</option>
-                            <option value="O">Oitizeiro</option>
-                            <option value="CD">Conde</option>
-                        </select>
-                        <button class="btn btn-secondary" id="filtrar-vendas">
-                            <i class="fas fa-filter"></i>
-                            Filtrar
-                        </button>
-                        <button class="btn btn-secondary" id="exportar-vendas">
-                            <i class="fas fa-file-export"></i>
-                            Exportar
-                        </button>
-                    </div>
                 </div>
-
-                <!-- Tabela de Vendas -->
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Moto</th>
-                                <th>Cliente</th>
-                                <th>Valor</th>
-                                <th>Loja</th>
-                                <th>Vendedor</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="vendas-table-body">
-                            <!-- Dados carregados via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Resumo -->
-                <div class="resumo-vendas">
-                    <div class="card">
-                        <h3>Total do Período</h3>
-                        <p id="total-periodo">R$ 0,00</p>
-                    </div>
-                    <div class="card">
-                        <h3>Vendas Oitizeiro</h3>
-                        <p id="vendas-o">R$ 0,00</p>
-                    </div>
-                    <div class="card">
-                        <h3>Vendas Conde</h3>
-                        <p id="vendas-cd">R$ 0,00</p>
-                    </div>
-                </div>
+                
+                <!-- Resto do conteúdo da página de vendas -->
             </div>
         </main>
-    </div>
-
-    <!-- Modal Nova Venda -->
-    <div id="venda-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Nova Venda</h2>
-            <form id="venda-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="moto">Modelo da Moto</label>
-                        <select id="moto" required>
-                            <option value="">Selecione um modelo</option>
-                            <!-- Modelos carregados via JavaScript -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="valor">Valor (R$)</label>
-                        <input type="number" id="valor" step="0.01" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="cliente">Cliente</label>
-                        <input type="text" id="cliente" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="data">Data</label>
-                        <input type="date" id="data" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="loja-venda">Loja</label>
-                    <select id="loja-venda" required>
-                        <option value="O">Oitizeiro</option>
-                        <option value="CD">Conde</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="vendedor">Vendedor</label>
-                    <input type="text" id="vendedor" required>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i>
-                    Salvar Venda
-                </button>
-            </form>
-        </div>
     </div>
 
     <script src="js/app.js"></script>
