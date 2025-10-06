@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Usuários - Shineray PRO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Mesmo sidebar do dashboard -->
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="header-title">Gestão de Usuários</h1>
+                <div class="header-actions">
+                    <!-- Mesmo header do dashboard -->
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Barra de Ações -->
+                <div class="action-bar">
+                    <button class="btn btn-primary" id="novo-usuario-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Novo Usuário
+                    </button>
+                    <div class="filters">
+                        <select id="filtrar-perfil">
+                            <option value="todos">Todos os Perfis</option>
+                            <option value="admin">Administrador</option>
+                            <option value="vendedor">Vendedor</option>
+                        </select>
+                        <select id="filtrar-loja-usuarios">
+                            <option value="todas">Todas as Lojas</option>
+                            <option value="O">Oitizeiro</option>
+                            <option value="CD">Conde</option>
+                        </select>
+                        <select id="filtrar-status">
+                            <option value="todos">Todos os Status</option>
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tabela de Usuários -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Perfil</th>
+                                <th>Loja</th>
+                                <th>Último Acesso</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usuarios-table-body">
+                            <!-- Dados carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Estatísticas de Usuários -->
+                <div class="stats-cards">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h3>Total de Usuários</h3>
+                        <p id="total-usuarios">0</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                        <h3>Administradores</h3>
+                        <p id="total-admins">0</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-user-tag"></i></div>
+                        <h3>Vendedores</h3>
+                        <p id="total-vendedores">0</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                        <h3>Usuários Ativos</h3>
+                        <p id="usuarios-ativos">0</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Novo Usuário -->
+    <div id="usuario-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-usuario-titulo">Novo Usuário</h2>
+            <form id="usuario-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome-usuario">Nome Completo</label>
+                        <input type="text" id="nome-usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email-usuario">E-mail</label>
+                        <input type="email" id="email-usuario" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="perfil-usuario">Perfil</label>
+                        <select id="perfil-usuario" required>
+                            <option value="vendedor">Vendedor</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="loja-usuario">Loja</label>
+                        <select id="loja-usuario" required>
+                            <option value="O">Oitizeiro</option>
+                            <option value="CD">Conde</option>
+                            <option value="ambas">Ambas as Lojas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="senha-usuario">Senha</label>
+                    <input type="password" id="senha-usuario" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmar-senha">Confirmar Senha</label>
+                    <input type="password" id="confirmar-senha" required>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="usuario-ativo" checked>
+                        <span>Usuário ativo</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Salvar Usuário
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/usuarios.js"></script>
+</body>
+</html>

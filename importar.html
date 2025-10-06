@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar Dados - Shineray PRO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Mesmo sidebar do dashboard -->
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="header-title">Importar Dados</h1>
+                <div class="header-actions">
+                    <!-- Mesmo header do dashboard -->
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="import-sections">
+                    <!-- Importação de Vendas -->
+                    <div class="import-section">
+                        <h2>Importar Vendas</h2>
+                        <div class="card">
+                            <h3>Planilha de Vendas</h3>
+                            <p>Importe dados de vendas de planilhas Excel (.xlsx, .xls)</p>
+                            
+                            <div class="upload-area" id="upload-vendas">
+                                <i class="fas fa-file-excel"></i>
+                                <p>Arraste sua planilha aqui ou clique para selecionar</p>
+                                <input type="file" id="planilha-vendas" accept=".xlsx, .xls" hidden>
+                                <button class="btn btn-secondary" id="selecionar-vendas">
+                                    Selecionar Arquivo
+                                </button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="loja-import-vendas">Loja dos Dados</label>
+                                <select id="loja-import-vendas">
+                                    <option value="O">Oitizeiro</option>
+                                    <option value="CD">Conde</option>
+                                </select>
+                            </div>
+                            
+                            <button id="importar-vendas-btn" class="btn btn-primary" disabled>
+                                <i class="fas fa-file-import"></i>
+                                Importar Vendas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Importação de Estoque -->
+                    <div class="import-section">
+                        <h2>Importar Estoque</h2>
+                        <div class="card">
+                            <h3>Planilha de Estoque</h3>
+                            <p>Importe dados de estoque de planilhas Excel</p>
+                            
+                            <div class="upload-area" id="upload-estoque">
+                                <i class="fas fa-file-excel"></i>
+                                <p>Arraste sua planilha aqui ou clique para selecionar</p>
+                                <input type="file" id="planilha-estoque" accept=".xlsx, .xls" hidden>
+                                <button class="btn btn-secondary" id="selecionar-estoque">
+                                    Selecionar Arquivo
+                                </button>
+                            </div>
+                            
+                            <button id="importar-estoque-btn" class="btn btn-primary" disabled>
+                                <i class="fas fa-file-import"></i>
+                                Importar Estoque
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formato Esperado -->
+                <div class="format-info">
+                    <h2>Formato Esperado das Planilhas</h2>
+                    <div class="cards-container">
+                        <div class="card">
+                            <h3>Vendas</h3>
+                            <ul>
+                                <li><strong>Data:</strong> dd/mm/aaaa</li>
+                                <li><strong>Modelo:</strong> Nome completo do modelo</li>
+                                <li><strong>Cliente:</strong> Nome do cliente</li>
+                                <li><strong>Valor:</strong> Valor numérico (R$)</li>
+                                <li><strong>Loja:</strong> O ou CD</li>
+                                <li><strong>Vendedor:</strong> Nome do vendedor</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Estoque</h3>
+                            <ul>
+                                <li><strong>Modelo:</strong> Nome completo do modelo</li>
+                                <li><strong>Quantidade:</strong> Número inteiro</li>
+                                <li><strong>Estoque Mínimo:</strong> Número inteiro</li>
+                                <li><strong>Loja:</strong> O ou CD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Histórico de Importações -->
+                <div class="import-history">
+                    <h2>Últimas Importações</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Arquivo</th>
+                                <th>Registros</th>
+                                <th>Status</th>
+                                <th>Usuário</th>
+                            </tr>
+                        </thead>
+                        <tbody id="import-history-body">
+                            <!-- Histórico carregado via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/importacao.js"></script>
+</body>
+</html>

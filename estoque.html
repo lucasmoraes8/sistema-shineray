@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque - Shineray PRO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Mesmo sidebar do dashboard -->
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="header-title">Controle de Estoque</h1>
+                <div class="header-actions">
+                    <!-- Mesmo header do dashboard -->
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Barra de Ações -->
+                <div class="action-bar">
+                    <button class="btn btn-primary" id="adicionar-estoque-btn">
+                        <i class="fas fa-plus"></i>
+                        Adicionar Estoque
+                    </button>
+                    <button class="btn btn-secondary" id="ajustar-estoque-btn">
+                        <i class="fas fa-edit"></i>
+                        Ajustar Estoque
+                    </button>
+                    <div class="search-bar">
+                        <input type="text" id="buscar-estoque" placeholder="Buscar modelo...">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Alertas de Estoque -->
+                <div class="alertas">
+                    <h3>Alertas de Estoque</h3>
+                    <div id="alertas-container">
+                        <!-- Alertas carregados via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Tabela de Estoque -->
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Modelo</th>
+                                <th>Quantidade</th>
+                                <th>Estoque Mínimo</th>
+                                <th>Última Atualização</th>
+                                <th>Status</th>
+                                <th>Loja</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="estoque-table-body">
+                            <!-- Dados carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Estatísticas de Estoque -->
+                <div class="stats-cards">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-boxes"></i></div>
+                        <h3>Total em Estoque</h3>
+                        <p id="total-estoque">0</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <h3>Itens com Estoque Baixo</h3>
+                        <p id="estoque-baixo">0</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-times-circle"></i></div>
+                        <h3>Itens sem Estoque</h3>
+                        <p id="estoque-zero">0</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-sync-alt"></i></div>
+                        <h3>Necessidade de Reposição</h3>
+                        <p id="reposicao">0</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Adicionar Estoque -->
+    <div id="estoque-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar ao Estoque</h2>
+            <form id="estoque-form">
+                <div class="form-group">
+                    <label for="modelo-estoque">Modelo da Moto</label>
+                    <select id="modelo-estoque" required>
+                        <option value="">Selecione um modelo</option>
+                        <!-- Modelos carregados via JavaScript -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quantidade">Quantidade</label>
+                        <input type="number" id="quantidade" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="estoque-minimo">Estoque Mínimo</label>
+                        <input type="number" id="estoque-minimo" min="0" value="2">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="loja-estoque">Loja</label>
+                    <select id="loja-estoque" required>
+                        <option value="O">Oitizeiro</option>
+                        <option value="CD">Conde</option>
+                        <option value="ambas">Ambas as Lojas</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Salvar Estoque
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/estoque.js"></script>
+</body>
+</html>

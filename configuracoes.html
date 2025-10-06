@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Shineray PRO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Mesmo sidebar do dashboard -->
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="header-title">Configurações do Sistema</h1>
+                <div class="header-actions">
+                    <!-- Mesmo header do dashboard -->
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="settings-sections">
+                    <!-- Configurações das Lojas -->
+                    <section class="settings-section">
+                        <h2>Configurações das Lojas</h2>
+                        <div class="card">
+                            <h3>Loja Oitizeiro (O)</h3>
+                            <div class="form-group">
+                                <label for="nome-loja-o">Nome da Loja</label>
+                                <input type="text" id="nome-loja-o" value="Oitizeiro">
+                            </div>
+                            <div class="form-group">
+                                <label for="endereco-o">Endereço</label>
+                                <input type="text" id="endereco-o" placeholder="Endereço completo">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone-o">Telefone</label>
+                                <input type="text" id="telefone-o" placeholder="(00) 0000-0000">
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Loja Conde (CD)</h3>
+                            <div class="form-group">
+                                <label for="nome-loja-cd">Nome da Loja</label>
+                                <input type="text" id="nome-loja-cd" value="Conde">
+                            </div>
+                            <div class="form-group">
+                                <label for="endereco-cd">Endereço</label>
+                                <input type="text" id="endereco-cd" placeholder="Endereço completo">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone-cd">Telefone</label>
+                                <input type="text" id="telefone-cd" placeholder="(00) 0000-0000">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Configurações de Estoque -->
+                    <section class="settings-section">
+                        <h2>Configurações de Estoque</h2>
+                        <div class="card">
+                            <h3>Alertas de Estoque</h3>
+                            <div class="form-group">
+                                <label for="estoque-baixo">Quantidade para Alerta de Estoque Baixo</label>
+                                <input type="number" id="estoque-baixo" value="3" min="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="estoque-critico">Quantidade para Alerta de Estoque Crítico</label>
+                                <input type="number" id="estoque-critico" value="1" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="alertas-email" checked>
+                                    <span>Enviar alertas por e-mail</span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Configurações de Notificações -->
+                    <section class="settings-section">
+                        <h2>Notificações</h2>
+                        <div class="card">
+                            <h3>Preferências de Notificação</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="notif-vendas" checked>
+                                    <span>Notificar sobre novas vendas</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="notif-estoque" checked>
+                                    <span>Notificar sobre estoque baixo</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="notif-relatorios">
+                                    <span>Enviar relatórios automáticos</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="frequencia-relatorios">Frequência dos Relatórios</label>
+                                <select id="frequencia-relatorios">
+                                    <option value="diario">Diário</option>
+                                    <option value="semanal" selected>Semanal</option>
+                                    <option value="mensal">Mensal</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Backup e Segurança -->
+                    <section class="settings-section">
+                        <h2>Backup e Segurança</h2>
+                        <div class="card">
+                            <h3>Backup de Dados</h3>
+                            <p>Faça backup completo dos dados do sistema</p>
+                            <button class="btn btn-primary" id="backup-btn">
+                                <i class="fas fa-download"></i>
+                                Fazer Backup
+                            </button>
+                            <div class="backup-info">
+                                <p><strong>Último backup:</strong> <span id="ultimo-backup">Nunca</span></p>
+                                <p><strong>Próximo backup automático:</strong> <span id="proximo-backup">-</span></p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Segurança</h3>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="login-duplo">
+                                    <span>Exigir autenticação em duas etapas</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="tempo-sessao">Tempo de Sessão (minutos)</label>
+                                <input type="number" id="tempo-sessao" value="60" min="15">
+                            </div>
+                            <div class="form-group">
+                                <label for="tentativas-login">Tentativas de Login Permitidas</label>
+                                <input type="number" id="tentativas-login" value="3" min="1">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="settings-actions">
+                    <button class="btn btn-primary" id="salvar-configuracoes">
+                        <i class="fas fa-save"></i>
+                        Salvar Todas as Configurações
+                    </button>
+                    <button class="btn btn-secondary" id="restaurar-padrao">
+                        <i class="fas fa-undo"></i>
+                        Restaurar Padrões
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/configuracoes.js"></script>
+</body>
+</html>
