@@ -1,8 +1,8 @@
 :root {
-    --primary: #fa3c3c;
+    --primary: #ff5757b1;
     --primary-dark: #E55A00;
     --primary-light: #FF8C42;
-    --dark: #000000ea;
+    --dark: hsla(0, 0%, 18%, 0.761);
     --darker: #0A0A0A;
     --dark-light: #1E1E1E;
     --light: #F5F5F5;
